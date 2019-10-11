@@ -1,7 +1,7 @@
 <template>
   <div id="bigbox">
     <router-view></router-view>
-    <el-menu :default-active="activeIndex" class="el-menu-demo app-nav" mode="horizontal" @select="handleSelect" router v-if="hid!='reg'" v-model="hid">
+    <el-menu :default-active="activeIndex" class="el-menu-demo app-nav" mode="horizontal" @select="handleSelect" router v-model="show">
       <el-menu-item :index="item.path" v-for="item in menus" :key="item.name" class="nav-item"><i :class="item.icon"></i><span>{{item.text}}</span></el-menu-item>
     </el-menu>
   </div>
@@ -14,8 +14,8 @@ export default {
   name: 'app',
   data(){
     return{
-      activeIndexIndex:'/home',
-      hid:"",
+      activeIndex:'/home',
+      show:true,
       menus:[{
         name:"home",
         path:"/home",
@@ -42,14 +42,17 @@ export default {
   methods:{
     handleSelect(index) {
       this.activeIndex = index;
-      // this.$router.push(index)
-    }
+    
+    },
+  
   },
-  created(){
-    this.hid = this.$route.name
+  created(){console.log(this.$route)
     //刷新页面、浏览器停留在当前组件
      this.activeIndex = this.$route.path;
+     
+    
   },
+  
   components: {
     
   }
@@ -104,5 +107,5 @@ export default {
 }
 .is-active{
   color:#f56c02 !important;
-}
+  }
 </style>

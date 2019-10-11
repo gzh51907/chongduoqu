@@ -12,6 +12,7 @@ import Goods from '../pages/Goods.vue'
 import Detail from '../pages/Detail.vue'
 import Login from '../pages/Login.vue'
 import Reg from '../pages/Reg.vue'
+import Agreement from '../pages/Agreement.vue'
 
 //创建路由实例
 let router = new VueRouter({
@@ -51,6 +52,10 @@ let router = new VueRouter({
         name:"reg",
         path:"/reg",
         component:Reg
+    },{
+        name:"agreement",
+        path:"/agreement",
+        component:Agreement
     }]
 })
 
