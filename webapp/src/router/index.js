@@ -20,6 +20,10 @@ let router = new VueRouter({
         path:"/home",
         component:Home
     },{
+        //当浏览器地址为/home时，显示Home组件的内容
+        path: '/',  
+        redirect: '/home'
+    },{
         name:"category",
         path:"/category",
         component:Category
