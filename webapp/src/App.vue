@@ -79,7 +79,8 @@ export default {
   height: 50px;
   display:flex;
   width: 100%;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 1px;
   overflow:hidden;
   z-index:1000;
 }
@@ -107,5 +108,11 @@ export default {
 }
 .is-active{
   color:#f56c02 !important;
-  }
+}
+.ca-search .el-input__inner{
+    border-radius: 20px !important;
+    background:#f0f2f5;
+    height: 38px;
+    border:0;
+}
 </style>
