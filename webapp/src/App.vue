@@ -109,10 +109,13 @@ export default {
 .is-active{
   color:#f56c02 !important;
 }
-.ca-search .el-input__inner{
+.ca-search .el-input__inner,.gd-search .el-input__inner{
     border-radius: 20px !important;
     background:#f0f2f5;
     height: 38px;
     border:0;
+}
+.gd-search .el-input__inner{
+  background:#e5e5e5;
 }
 </style>
