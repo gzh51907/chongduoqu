@@ -1,7 +1,7 @@
 <template>
   <div id="bigbox">
-    <router-view></router-view>
-    <el-menu :default-active="activeIndex" class="el-menu-demo app-nav" mode="horizontal" @select="handleSelect" router v-model="show">
+    <router-view v-model="show" ></router-view>
+    <el-menu :default-active="activeIndex" class="el-menu-demo app-nav" mode="horizontal" @select="handleSelect" router v-show="show" >
       <el-menu-item :index="item.path" v-for="item in menus" :key="item.name" class="nav-item"><i :class="item.icon"></i><span>{{item.text}}</span></el-menu-item>
     </el-menu>
   </div>
@@ -12,10 +12,13 @@
 
 export default {
   name: 'app',
+  
   data(){
     return{
       activeIndex:'/home',
-      show:true,
+      show:this.$route.name=='home'||this.$route.name=='cart'||this.$route.name=='category'||this.$route.name=='mine',
+      showa:'/home'||'/category',
+      showb:"home"||"category"||"cart"||"mine",
       menus:[{
         name:"home",
         path:"/home",
@@ -39,19 +42,31 @@ export default {
       }]
     }
   },
+  watch:{
+    $route(){
+      console.log(222222222222)
+      if(this.$route.name=="home"||this.$route.name=="category"||this.$route.name=="cart"||this.$route.name=="mine"){
+        this.show = true
+      }else{
+        this.show = false
+      }
+      //监听$router将url和nav实时绑定
+      this.activeIndex = this.$route.path;
+    }
+  }
+  ,
   methods:{
     handleSelect(index) {
       this.activeIndex = index;
+    }
     
-    },
-  
   },
-  created(){console.log(this.$route)
+  created(){console.log(this.show)
     //刷新页面、浏览器停留在当前组件
      this.activeIndex = this.$route.path;
      
-    
   },
+ 
   
   components: {
     
@@ -74,6 +89,9 @@ export default {
 .box,.router-view{
   flex:1;
   overflow-y: scroll;
+}
+.app-nav-hid{
+  height: 0;
 }
 .app-nav{
   height: 50px;
@@ -118,4 +136,6 @@ export default {
 .gd-search .el-input__inner{
   background:#e5e5e5;
 }
+
+
 </style>

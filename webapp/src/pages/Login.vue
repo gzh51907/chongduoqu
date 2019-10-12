@@ -76,6 +76,7 @@ export default {
   }
 };
 </script>
+
     
 <style scoped>
 .box {

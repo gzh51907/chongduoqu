@@ -14,7 +14,7 @@
         <div class="cate-item">
           <div class="cate-title">
             title
-            <span>全部></span>
+            <span @click="goto('/goods')">全部></span>
           </div>
           <ul class="cate-ul">
             <li v-for="item in 10" :key="item">
@@ -77,6 +77,9 @@ export default {
     };
   },
   methods: {
+    goto(url){
+        this.$router.push(url)
+    },
     loadAll() {
       return [
         { value: "三全鲜食（北新泾店）", address: "长宁区新渔路144号" },
