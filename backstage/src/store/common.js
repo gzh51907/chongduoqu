@@ -1,7 +1,8 @@
 // import axios from 'axios';
 export default{
     state:{
-        show:false
+        show:false,
+        user:""
     },
     mutations:{
 

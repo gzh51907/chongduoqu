@@ -76,15 +76,19 @@ export default {
           mdl
         }
       });
-      // console.log(data)
       
+       
       if (data.code==1) {
+        
         if(this.checked == true){
           
         localStorage.setItem("Authorization", data.data); 
+        localStorage.setItem("user", this.ruleForm.username); 
         this.$store.state.common.show = true
+        this.$store.state.common.user = this.ruleForm.username;
         }else if(this.checked == false){
           this.$store.state.common.show = true
+          this.$store.state.common.user = this.ruleForm.username;
         }
  
       } else {
