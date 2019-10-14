@@ -7,6 +7,10 @@ let {mongo} = require('../db')
 let {find,create,update,remove} = require('../db/mongo')
 
 let {formatData} = require('../tools')
+//爬取并修写入改图片路径所需模块
+const fs = require('fs');
+const path = require('path');
+const request = require('request');
 
 
 
@@ -55,6 +59,25 @@ router.get('/:id',async(req,res)=>{
     let {id} = req.params
     let result = await find('goods',{id:id})
     res.send(formatData({data:result}))
+})
+
+//获取商品并且把图片经过处理
+router.get("/all/img",async(req,res)=>{
+    let result = await find('category',{})
+    result.forEach((item,i)=>{
+    
+    //提取图片文件名
+    let filename =  path.basename(item.default_photo.thumb);
+
+    // 将图片写入本地
+    request(item.default_photo.thumb).pipe(fs.createWriteStream('./assets/imgs/'+ filename));
+
+    //改变数据区图片路径
+    item.default_photo.thumb = 'assets/imgs/'+filename;
+    
+
+    })
+    res.send(result)
 })
 
 //根据keyword获取商品
