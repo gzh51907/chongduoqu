@@ -61,7 +61,7 @@ router.post('/reg',async(req,res)=>{
 router.get('/login',async (req,res)=>{
     let {username,password,mdl} = req.query;
 
-    let result = await mongo.find('test',{username,password});
+    let result = await mongo.find('admin_login',{username,password});
 
     
 
