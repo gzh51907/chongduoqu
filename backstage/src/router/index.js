@@ -10,6 +10,7 @@ import Goodsadd from '../components/goods/Goodsadd.vue'
 import Userlist from '../components/user/Userlist.vue'
 import Usermanage from '../components/user/Usermanage.vue'
 import Useradd from '../components/user/Useradd.vue'
+import Listmenus from '../components/list/Listmenus.vue'
 
 // import Login from '../pages/Login.vue'
 // import Reg from '../pages/Reg.vue'
@@ -45,6 +46,10 @@ let router = new VueRouter({
         name:"usermanage",
         path:"/usermanage",
         component:Usermanage
+    },{
+        name:"listmenus",
+        path:"/listmenus",
+        component:Listmenus
     }]
 })
 

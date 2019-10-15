@@ -18,7 +18,8 @@ const request = require('request');
 //获取所有商品
 
 router.get("/all",async(req,res)=>{
-    let result = await find('goods',{})
+    let {collection} = req.query
+    let result = await find(collection,{})
     res.send(formatData({data:result}))
 })
 //增加商品
@@ -63,17 +64,17 @@ router.get('/:id',async(req,res)=>{
 
 //获取商品并且把图片经过处理
 router.get("/all/img",async(req,res)=>{
-    let result = await find('category',{})
+    let result = await find('test',{})
     result.forEach((item,i)=>{
     
     //提取图片文件名
     let filename =  path.basename(item.default_photo.thumb);
 
     // 将图片写入本地
-    request(item.default_photo.thumb).pipe(fs.createWriteStream('./assets/imgs/'+ filename));
+    request(item.default_photo.thumb).pipe(fs.createWriteStream('../webapp/src/assets/img/'+ filename));
 
     //改变数据区图片路径
-    item.default_photo.thumb = 'assets/imgs/'+filename;
+    item.default_photo.thumb = 'img/'+filename;
     
 
     })

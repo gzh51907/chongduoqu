@@ -42,7 +42,7 @@ let remove = async(colName,query)=>{
     client.close()
     return result
 }
-
+ 
 
 //更新数据
 let update = async(colName,query,data)=>{
