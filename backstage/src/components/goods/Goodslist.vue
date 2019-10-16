@@ -42,7 +42,8 @@ export default {
       tableData: [],
       multipleSelection: [],
       currentPage3: 1,
-      isup:true
+      isup:true,
+      psname:"",
     };
   },
 
@@ -60,10 +61,12 @@ export default {
       this.multipleSelection = val;
     },
     handleEdit(index, row) {
-      console.log(index, row);
+      console.log(index, row,this.$route);
+      let paname = row.name
+      this.$router.push({name:"goodschange",params:{paname}})
     },
     handleUpDown(index, row) {
-      console.log(index, row);
+      // console.log(index, row);
       // this.isup = !this.isup
     },
     async handleDelete(index, row) {
@@ -97,6 +100,9 @@ export default {
         this.tableData.push(userO);
       });
       console.log(data)
+    },
+    goto(url){
+      this.$router.push(url)
     }
   },
   watch:{
@@ -133,7 +139,11 @@ export default {
   text-align: center;
 }
 .el-table{
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  margin-top: 20px;
+  
 }
-
+.el-table__header /deep/ tr{
+  background:skyblue !important;
+}
 </style>

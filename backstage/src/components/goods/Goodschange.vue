@@ -21,7 +21,7 @@
           </el-col>
           <el-col :span="11">
               <el-form-item label="销售价格:" prop="current_price">
-                <el-input v-model="ruleForm.current_price"></el-input>
+                <el-input v-model="ruleForm.currentprice"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -35,7 +35,10 @@
         
         <el-row>
             <el-col  :span="4" style="padding-left:60px;font-size: 14px;color: #606266;">商品图片:</el-col>
-            <el-col class="img-wall" style="margin-bottom:20px;" :span="20">  
+            <el-col  :span="4" style="margin:0 5px;border:1px dashed skyblue;width:144px" >
+                <img width="100%" :src="majorurl" alt="">
+            </el-col>
+            <el-col class="img-wall" style="margin-bottom:20px;" :span="15">  
                     <el-upload
                         :limit="3"  
                         :action="uploadurl()"
@@ -47,6 +50,7 @@
                         <i class="el-icon-plus"></i>
                     </el-upload>
                     <el-dialog :visible.sync="dialogVisible">
+                        
                         <img width="100%" :src="dialogImageUrl" alt="">
                     </el-dialog>        
                 
@@ -59,7 +63,7 @@
         </el-form-item> 
         
         <el-form-item>
-          <el-button type="primary" @click="btn()">提交</el-button>
+          <el-button type="primary" @click="btn()">修改</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -166,18 +170,14 @@ export default {
     async btn(){
         // {name,price,currentprice,majorimg,kucun,info,sellcount,id,brand}
         
-        console.log(this.ruleForm.productname,this.ruleForm.price,this.ruleForm.info)
-        let {data} = await this.$axios.post("http://10.3.133.40:1907/goods/addproduct",{
+        // console.log(this.ruleForm.productname,this.ruleForm.price,this.ruleForm.info)
+        let {data} = await this.$axios.post("http://10.3.133.40:1907/goods/change",{
             name:this.ruleForm.name,
             price:this.ruleForm.price,
             currentprice:this.ruleForm.currentprice,
             majorimg:this.ruleForm.majorurl,
             info:this.ruleForm.info,
-            id:this.ruleForm.putid,
             kucun:this.ruleForm.kucun,
-            sellcount:200,
-            brand:196,
-            category:107
         })
         //会有bug，待修复
         var randomNum = (Math.random()*50000+1).toFixed(0)
@@ -211,8 +211,17 @@ export default {
         alert("最多只能上传三张图片")
     }
   },
-  created(){
-
+  async created(){
+      
+      let keyword = this.$route.params.paname
+      let {data:{data}} = await this.$axios.get(`http://10.3.133.40:1907/goods/keyword?keyword=${keyword}`)
+      data = data[0]
+        this.ruleForm.currentprice = data.current_price
+        this.ruleForm.info =data.goods_brief
+        this.ruleForm.productname= data.name
+        this.ruleForm.price = data.price
+        this.ruleForm.kucun =data.kucun
+        this.majorurl = data.default_photo.thumb
       
   }
 };

@@ -21,10 +21,22 @@ router.post('/update',async(req,res)=>{
         item.kucun = randomNum
         update('goodslist_all',{_id:item._id},{kucun:item.kucun })
     })
-
+     
     // let result = await update('goodslist_all',{},{kucun:randomNum})
     res.send(formatData({data:data}))
 })
+
+//修改商品信息
+router.post('/change',async(req,res)=>{
+    // let data = await find('goodslist_all',{})
+    let {name,price,info,currentprice,majorimg,kucun} = req.body
+    let result = update('test',{name:new RegExp(name,'g')},{price:price,name:name,current_price:currentprice,goods_brief:info,kucun:kucun,default_photo:majorimg})
+    // let result = await update('goodslist_all',{},{kucun:randomNum})
+    res.send(formatData({data:result}))
+})
+
+
+
 
 
 //获取所有商品
@@ -62,11 +74,13 @@ router.post("/addproduct",async(req,res)=>{
     res.send(formatData({data:result}))
 })
 
+
+
 //根据关键字keyword获取商品
 router.get('/keyword',async(req,res)=>{
     let {keyword} = req.query
 
-    let result = await find('goods',{name:new RegExp(keyword,'g')})/*正则--名字包含keyword */
+    let result = await find('goodslist_all',{name:new RegExp(keyword,'g')})/*正则--名字包含keyword */
     res.send(formatData({data:result}))
 })
 

@@ -7,7 +7,9 @@ Vue.use(VueRouter)
 import Goodslist from '../components/goods/Goodslist.vue'
 import Goodscategory from '../components/goods/Goodscategory.vue'
 import Goodsadd from '../components/goods/Goodsadd.vue'
+import Goodschange from '../components/goods/Goodschange.vue'
 import Userlist from '../components/user/Userlist.vue'
+import Userchange from '../components/user/Userchange.vue'
 import Usermanage from '../components/user/Usermanage.vue'
 import Useradd from '../components/user/Useradd.vue'
 import Listmenus from '../components/list/Listmenus.vue'
@@ -35,6 +37,10 @@ let router = new VueRouter({
         path:"/goodsadd",
         component:Goodsadd
     },{
+        name:"goodschange",
+        path:"/goodschange/:paname",
+        component:Goodschange
+    },{
         name:"userlist",
         path:"/userlist",
         component:Userlist
@@ -42,6 +48,10 @@ let router = new VueRouter({
         name:"useradd",
         path:"/useradd",
         component:Useradd
+    },{
+        name:"userchange",
+        path:"/userchange/:paname",
+        component:Userchange
     },{
         name:"usermanage",
         path:"/usermanage",

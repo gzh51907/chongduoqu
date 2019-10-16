@@ -53,6 +53,8 @@ export default {
     },
     handleEdit(index, row) {
       console.log(index, row);
+      let paname = row.username
+      this.$router.push({name:"userchange",params:{paname}})
     },
     async handleDelete(index, row) {
       console.log(index, row);
@@ -105,3 +107,17 @@ export default {
   }
 };
 </script>
+<style scoped>
+.block{
+  margin:40px auto;
+  text-align: center;
+}
+.el-table{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  margin-top: 20px;
+  
+}
+.el-table__header /deep/ tr{
+  background:skyblue !important;
+}
+</style>

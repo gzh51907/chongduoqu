@@ -16,7 +16,7 @@ router.get('/all',async(req,res)=>{
     res.send(formatData({data:result}))
 })
 
-
+ 
 
 
 //获取数据并查询数据库是否存在数据---->如果用户名已经存在  返回结果 {code:0,msg:"fail,data:查询结果（json字符串）},"
@@ -64,6 +64,14 @@ router.post('/reg',async(req,res)=>{
     
 })
 
+//修改商品信息
+router.post('/change',async(req,res)=>{
+    // let data = await find('goodslist_all',{})
+    let {name,email,password,username2,phone} = req.body
+    let result = update('test',{name:name},{email:email,name:name,password:password,username2:username2,phone:phone})
+    // let result = await update('goodslist_all',{},{kucun:randomNum})
+    res.send(formatData({data:result}))
+})
 
 //后台插入用户信息
 router.post('/backreg',async(req,res)=>{
