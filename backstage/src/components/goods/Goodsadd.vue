@@ -1,10 +1,173 @@
 <template>
-    <div class="box">
-        <h1>添加商品</h1>
+  <div class="box">
+    <div class="form" s>
+      <el-form
+        :model="ruleForm"
+        status-icon
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+        
+      > 
+        <el-form-item label="商品名称:" prop="productname" >
+          <el-input v-model="ruleForm.productname" ></el-input>
+        </el-form-item>
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="原价:" prop="price">
+                <el-input v-model="ruleForm.price"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+              <el-form-item label="销售价格:" prop="current_price">
+                <el-input v-model="ruleForm.current_price"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row style="width:120%">
+            <el-col :span="11">
+                <el-form-item label="库存:" prop="kucun">
+                    <el-input  v-model="ruleForm.kucun" autocomplete="off"></el-input>
+                </el-form-item>    
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col  :span="4" style="padding-left:60px;font-size: 14px;color: #606266;">商品图片:</el-col>
+            <el-col class="img-wall" style="margin-bottom:20px;" :span="20">  
+                    <el-upload
+                        :limit="3"  
+                        :action="uploadurl()"
+                        list-type="picture-card"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove"
+                        :on-success="handleSuccess"
+                        :on-exceed ="overcount">
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt="">
+                    </el-dialog>        
+                
+                
+            </el-col>    
+        </el-row>
+        
+        <el-form-item label="商品描述:" prop="info">
+            <el-input type="textarea" v-model="ruleForm.info" autocomplete="off"></el-input>
+        </el-form-item> 
+        
+        <el-form-item>
+          <el-button type="primary" @click="btn()">提交</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
     </div>
+  </div>
 </template>
 <script>
 export default {
+  data() {
+
+    var checkproductname = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("商品名称不能为空"));
+      }else{
+          callback()
+      }
+    };
+    var checkprice = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("价格不能为空"));
+      }else{
+          callback()
+      }
+      
+    };
+    var checkcurruntkprice = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("价格不能为空"));
+      }else{
+          callback()
+      }
+      
+    };
     
-}
+    var checkkucun = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("库存不能为空"));
+      } else {
+        callback();
+      }
+    };
+    return {
+        majorurl:"",
+      ruleForm: {
+        currentprice: "",
+        info:"",
+        productname: "",
+        price: "",
+        kucun:"",
+        
+      },
+      rules: {
+        currentprice: [{ validator: checkcurruntkprice, trigger: "blur" }],
+        productname: [{ validator: checkproductname, trigger: "blur" }],
+        price: [{ validator: checkprice, trigger: "blur" }],
+        kucun: [{ validator: checkkucun, trigger: "blur" }],
+      },
+      dialogImageUrl: '',
+      dialogVisible: false
+    };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    btn(){
+        console.log(this.ruleForm.productname,this.ruleForm.price,this.ruleForm.info)
+
+        
+    },
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+        console.log(this.dialogImageUrl)
+    },
+    handleSuccess(a,url,c){
+        console.log(a,url,c)
+        this.major = url[0].url
+    },
+    uploadurl(){
+        return "https://jsonplaceholder.typicode.com/posts/"
+    },
+    overcount(){
+        alert("最多只能上传三张图片")
+    }
+  },
+  created(){
+
+      
+  }
+};
 </script>
+<style scoped>
+    .form{
+        width: 70%;
+        margin:30px;
+    }
+
+</style>
