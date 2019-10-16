@@ -108,7 +108,7 @@ export default {
         productname: "",
         price: "",
         kucun:"",
-        
+        putid:20002
       },
       rules: {
         currentprice: [{ validator: checkcurruntkprice, trigger: "blur" }],
@@ -134,9 +134,33 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    btn(){
+    async btn(){
+        // {name,price,currentprice,majorimg,kucun,info,sellcount,id,brand}
+        
         console.log(this.ruleForm.productname,this.ruleForm.price,this.ruleForm.info)
+        let {data} = await this.$axios.post("http://10.3.133.40:1907/goods/addproduct",{
+            name:this.ruleForm.name,
+            price:this.ruleForm.price,
+            currentprice:this.ruleForm.currentprice,
+            majorimg:this.ruleForm.majorurl,
+            info:this.ruleForm.info,
+            id:this.ruleForm.putid,
+            kucun:this.ruleForm.kucun,
+            sellcount:200,
+            brand:196,
+            category:107
+        })
+        //会有bug，待修复
+        var randomNum = (Math.random()*50000+1).toFixed(0)
+        this.ruleForm.putid+=randomNum
+        console.log(data)
 
+        //判断是否成功
+        if(data.code==1){
+            alert("插入成功")
+        }else{
+            alert("插入失败")
+        }
         
     },
     handleRemove(file, fileList) {
@@ -148,8 +172,8 @@ export default {
         console.log(this.dialogImageUrl)
     },
     handleSuccess(a,url,c){
-        console.log(a,url,c)
-        this.major = url[0].url
+        console.log(url)
+        this.major = url.url
     },
     uploadurl(){
         return "https://jsonplaceholder.typicode.com/posts/"

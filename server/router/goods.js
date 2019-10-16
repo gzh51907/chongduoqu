@@ -54,9 +54,9 @@ router.get('/pages',async(req,res)=>{
 
 
 //增加商品
-router.post("/",async(req,res)=>{
-    let {name,price,sellCount} = req.body
-    let result = await create('goods',[{name:name,price:price,sellCount:sellCount}])
+router.post("/addproduct",async(req,res)=>{
+    let {name,price,currentprice,majorimg,kucun,info,sellcount,id,brand,category} = req.body
+    let result = await create('test',[{name:name,price:price,sales_count:sellcount,currentprice:currentprice,default_photo:majorimg,kucun:kucun,info:info,id:id,brand:brand,category:category}])
 
 
     res.send(formatData({data:result}))
@@ -87,10 +87,12 @@ router.get('/sort',async(req,res)=>{
 
 
 //根据id获取单个商品
-router.get('/:id',async(req,res)=>{
-    let {id} = req.params
-    let result = await find('goods',{id:id})
-    res.send(formatData({data:result}))
+router.get('/weer',(req,res)=>{
+    // let {id} = req.params
+    // let result = await find('goods',{id:id})
+    // res.send(formatData({data:result}))
+
+    res.send("111")
 })
 
 
