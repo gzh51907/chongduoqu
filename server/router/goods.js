@@ -11,8 +11,20 @@ let {formatData} = require('../tools')
 const fs = require('fs');
 const path = require('path');
 const request = require('request');
+ 
 
+//插入"库存"属性(随机数插入)
+router.post('/update',async(req,res)=>{
+    let data = await find('goodslist_all',{})
+    data.forEach((item,i)=>{
+        var randomNum = (Math.random()*1000).toFixed(0)
+        item.kucun = randomNum
+        update('goodslist_all',{_id:item._id},{kucun:item.kucun })
+    })
 
+    // let result = await update('goodslist_all',{},{kucun:randomNum})
+    res.send(formatData({data:data}))
+})
 
 
 //获取所有商品
@@ -22,6 +34,25 @@ router.get("/all",async(req,res)=>{
     let result = await find(collection,{})
     res.send(formatData({data:result}))
 })
+
+//分页获取商品
+router.get('/page',async(req,res)=>{
+    let {collection,limit} = req.query
+    limit = Number(limit)
+    let result = await find(collection,{},{limit:limit})
+    res.send(formatData({data:result}))
+})
+
+//分页获取商品
+router.get('/pages',async(req,res)=>{
+    let {collection,limit,skip} = req.query
+    limit = Number(limit)
+    skip = Number(skip)
+    let result = await find(collection,{},{limit:limit,skip:skip})
+    res.send(formatData({data:result}))
+})
+
+
 //增加商品
 router.post("/",async(req,res)=>{
     let {name,price,sellCount} = req.body
@@ -62,6 +93,10 @@ router.get('/:id',async(req,res)=>{
     res.send(formatData({data:result}))
 })
 
+
+
+
+
 //获取商品并且把图片经过处理
 router.get("/all/img",async(req,res)=>{
     let result = await find('test',{})
@@ -80,6 +115,8 @@ router.get("/all/img",async(req,res)=>{
     })
     res.send(result)
 })
+
+
 
 //根据keyword获取商品
 // router.get('/query',(req,res)=>{

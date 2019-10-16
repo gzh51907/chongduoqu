@@ -1,0 +1,6 @@
+{
+    "PORT":1907,
+    "local":"http://localhost:1907",
+    "ip":"http://10.3.133.40:1907",
+    "secret":"see you later"
+}
