@@ -8,6 +8,8 @@
       @selection-change="handleSelectionChange"
       lazy:true
       height="500"
+      
+      highlight-current-row
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column width="60" type="index"></el-table-column>
@@ -93,17 +95,7 @@ export default {
         }
       })
       console.log(this.tableData)
-      // data.forEach((item,i)=>{
-      //   user.username = item.username
-      //   user.username2 = item.username2
-      //   user.phone = item.phone
-      //   user.email = item.email
-      //   user.password = item.password
-
-      //   this.tableData.push(user)
-      //   console.log(user)
-      // })
-      // console.log(this.tableData)
+     
   }
 };
 </script>

@@ -8,7 +8,9 @@
       @selection-change="handleSelectionChange"
       lazy:true
       height="400"
-    >
+      
+      highlight-current-row
+    > 
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column width="60" type="index"></el-table-column>
       <el-table-column prop="name" label="商品名称" show-overflow-tooltip width="300"></el-table-column>
@@ -125,10 +127,7 @@ export default {
 
     
     
-    // let goods = await this.$axios.get("http://10.3.133.40:1907/goods/page?collection=goodslist_all&limit=10");
-    // goods = goods.data.data
-    // console.log(goods)
-
+   
     
   }
 };
