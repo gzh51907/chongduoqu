@@ -13,6 +13,7 @@ import Detail from '../pages/Detail.vue'
 import Login from '../pages/Login.vue'
 import Reg from '../pages/Reg.vue'
 import Agreement from '../pages/Agreement.vue'
+import Setter from '../pages/Setter.vue'
 
 //创建路由实例
 let router = new VueRouter({
@@ -31,14 +32,21 @@ let router = new VueRouter({
     },{
         name:"cart",
         path:"/cart",
-        component:Cart
+        component:Cart,
+        meta:{
+            requiresAuth:true
+        }
+    },{
+        name:"setter",
+        path:"/setter",
+        component:Setter
     },{
         name:"mine",
         path:"/mine",
         component:Mine
     },{
         name:"goods",
-        path:"/goods",
+        path:"/goods/:id",
         component:Goods
     },{
         name:"detail",
@@ -56,7 +64,32 @@ let router = new VueRouter({
         name:"agreement",
         path:"/agreement",
         component:Agreement
-    }]
+    },]
+})
+
+
+//设置全局路由守卫
+router.beforeEach(function(to,from,next){
+    window.console.log('beforeEach',to,from);
+    //设置页面访问权限
+    //先判断目标路由是否需要鉴权--->路由中是否有reuqireAuth属性
+    if(to.meta.requiresAuth){
+        let Authorization = localStorage.getItem("Authorization")
+        if(Authorization){
+            next()
+        }else{
+            router.push({
+                path:'/login',
+                query:{
+                    targetUrl:to.fullPath
+                }
+            })
+        }
+    }else if(to.path!=from.path){
+        next()
+    }
+    
+
 })
 
 

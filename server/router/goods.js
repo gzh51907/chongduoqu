@@ -29,10 +29,11 @@ router.post('/update',async(req,res)=>{
 //修改商品信息
 router.post('/change',async(req,res)=>{
     // let data = await find('goodslist_all',{})
-    let {name,price,info,currentprice,majorimg,kucun} = req.body
-    let result = update('test',{name:new RegExp(name,'g')},{price:price,name:name,current_price:currentprice,goods_brief:info,kucun:kucun,default_photo:majorimg})
-    // let result = await update('goodslist_all',{},{kucun:randomNum})
-    res.send(formatData({data:result}))
+    let {psname,price,info,currentprice,majorimg,kucun} = req.body
+    let result = update('goodslist_all',{name:new RegExp(psname,'g')},{price:price,kucun:kucun,current_price:currentprice,goods_brief:info,default_photo:majorimg})
+    // let result = update('test',{name:new RegExp(psname,'g')},{price:price},{kucun:kucun},{current_price:currentprice},{goods_brief:info},{default_photo:majorimg},{name:psname})
+    
+    res.send(formatData({data:result})) 
 })
 
 
@@ -92,22 +93,27 @@ router.get('/price',async(req,res)=>{
     res.send(formatData({data:result}))
 })
 
-//根据条件对商品进行排序
-router.get('/sort',async(req,res)=>{
+
+/* 升序为1 降序为0  */
+//根据条件对商品进行排序(升序) 
+router.get('/:id/up',async(req,res)=>{
+    let {id} = req.params
+    id = Number(id)
     let {sort} = req.query
-    let result = await find("goods",{},{sort:sort,asc:1})
+    let result = await find("goodslist_all",{category:id},{sort:sort,asc:1})
+    res.send(result)
+})
+
+//根据条件对商品进行排序(降序)
+router.get('/:id/down',async(req,res)=>{
+    let {id} = req.params
+    id = Number(id)
+    let {sort} = req.query
+    let result = await find("goodslist_all",{category:id},{sort:sort,asc:0})
     res.send(result)
 })
 
 
-//根据id获取单个商品
-router.get('/weer',(req,res)=>{
-    // let {id} = req.params
-    // let result = await find('goods',{id:id})
-    // res.send(formatData({data:result}))
-
-    res.send("111")
-})
 
 
 
@@ -133,6 +139,14 @@ router.get("/all/img",async(req,res)=>{
 })
 
 
+//根据id获取单个商品
+router.get('/:id',async(req,res)=>{
+    let {id} = req.params
+    id = Number(id)
+    let result = await find("goodslist_all",{category:id})
+    res.send(formatData({data:result}))
+    // res.send(id)
+})
 
 //根据keyword获取商品
 // router.get('/query',(req,res)=>{

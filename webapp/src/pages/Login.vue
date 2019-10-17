@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <h3>
-      <el-link class="regbtn el-icon-arrow-left"></el-link>
+      <el-link class="regbtn el-icon-arrow-left" @click="goback()"></el-link>
       <span>登录</span>
       <el-link class="regbtn" @click="goReg()">快速注册</el-link>
     </h3>
@@ -9,11 +9,11 @@
     <div class="login-box">
       <div class="ip">
         <i class="el-icon-user"></i>
-        <el-input placeholder="用户名/邮箱号/手机号"></el-input>
+        <el-input placeholder="用户名/邮箱号/手机号" v-model="ruleForm.username"></el-input>
       </div>
       <div class="ip">
         <i class="el-icon-key"></i>
-        <el-input placeholder="请输入密码" show-password></el-input>
+        <el-input placeholder="请输入密码" show-password v-model="ruleForm.pass"></el-input>
       </div>
     </div>
     <el-button type="warning" @click="loginBtn()" class="login">登录</el-button>
@@ -53,7 +53,7 @@ export default {
   methods: {
     async loginBtn() {
       let { username, pass, mdl } = this.ruleForm;
-      let { data } = await this.$axios.get("http://localhost:1907/user/login", {
+      let { data } = await this.$axios.get("http://localhost:1907/user/loginin", {
         params: {
           username,
           password: pass,
@@ -66,12 +66,19 @@ export default {
           path: targetUrl || "/mine"
         });
         localStorage.setItem("Authorization", data.data);
+        localStorage.setItem("user",this.ruleForm.username);
       } else {
         alert("用户名或密码不正确");
       }
     },
     goReg(){
         this.$router.push("/reg")
+    },
+    goback(){
+      let { targetUrl } = this.$route.query;
+        this.$router.replace({
+          path: targetUrl || "/home"
+        });
     }
   }
 };
@@ -133,6 +140,7 @@ h3 span {
   border:1px solid #e5e5e5;
 }
 .el-input{
+    
     width: 80%;
     box-sizing: border-box;
 }
@@ -142,7 +150,7 @@ h3 span {
     height: 45px;
     line-height: 45px;
     box-sizing: border-box;
-    color:#e5e5e5;
+    color:#555;
 }
 .el-button {
   width: 95%;

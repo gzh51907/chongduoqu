@@ -10,17 +10,17 @@
       ></el-autocomplete>
     </div>
     <el-tabs :tab-position="tabPosition" style="height:100%">
-      <el-tab-pane :label="item.tabTitle" v-for="item in tab" :key="item.tabTitle" class="dis-tab">
-        <div class="cate-item">
-          <div class="cate-title">
-            title
-            <span @click="goto('/goods')">全部></span>
+      <el-tab-pane :label="ele.name" v-for="ele in category" :key="ele._id" class="dis-tab">
+        <div class="cate-item" v-for="type in ele.categories" :key="type.id">
+          <div class="cate-title" style="color:#999;padding:5px;">
+              {{type.name}}
+            <span @click="goto('goods',215)">全部></span>
           </div>
           <ul class="cate-ul">
-            <li v-for="item in 10" :key="item">
-              <!-- <img src="" alt=""> -->
-              <div class="img"></div>
-              <span>衣服</span>
+            <li v-for="item in type.categories" :key="item.name" @click="gogoods(item.id)">
+              <img :src="item.photo?item.photo.thumb:noimg" alt="" style="max-width:100%;border-radius:50%">
+       
+              <span>{{item.name}}</span>
             </li>
           </ul>
         </div>
@@ -32,53 +32,20 @@
 export default {
   data() {
     return {
+      noimg:require("../assets/img/default.png"),
       tabPosition: "left",
-      tab: [
-        {
-          tabTitle: "宠物服饰"
-        },
-        {
-          tabTitle: "宠物服饰"
-        },
-        {
-          tabTitle: "宠物服饰"
-        },
-        {
-          tabTitle: "宠物服饰"
-        },
-        {
-          tabTitle: "宠物服饰"
-        },
-        {
-          tabTitle: "宠物服饰"
-        },
-        {
-          tabTitle: "宠物服饰"
-        },
-        {
-          tabTitle: "宠物服饰"
-        },
-        {
-          tabTitle: "宠物服饰"
-        }
-      ],
-      list: [
-        "宠物服饰",
-        "宠物服饰",
-        "宠物服饰",
-        "宠物服饰",
-        "宠物服饰",
-        "宠物服饰",
-        "宠物服饰"
-      ],
+      category:[],
       restaurants: [],
       state: "",
       timeout: null
     };
   },
   methods: {
-    goto(url){
-        this.$router.push(url)
+    goto(url,id){
+        this.$router.push({name:url,params:{id:id}})
+    },
+    gogoods(id){
+        this.$router.push({name:"goods",params:{id:id}})
     },
     loadAll() {
       return [
@@ -223,6 +190,12 @@ export default {
   },
   mounted() {
     this.restaurants = this.loadAll();
+  },
+  async created(){
+    let {data:{data}} = await this.$axios.get("http://10.3.133.40:1907/goods/all?collection=category")
+    
+    this.category = data
+    
   }
 };
 </script>
@@ -232,6 +205,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+  
 }
 .title {
   height: 44px;
@@ -266,11 +240,17 @@ export default {
   background: #f0f2f5;
   font-size: 16px;
 }
+.el-tabs>>>.el-tabs__content{
+  overflow-y:scroll !important;
+  height: 100%;
+  padding-right: 5px;
+}
 .el-tabs >>> .active {
   background: #fff;
 }
 .el-tabs >>> .el-tabs__active-bar {
   display: none !important;
+  
 }
 .el-tabs >>> .el-tabs__nav /deep/ .el-tabs__item {
   text-align: center;
@@ -281,17 +261,19 @@ export default {
   background: #fff;
 }
 .ca-search {
-  width: 90% !important;
+  width: 80% !important;
   height: 38px;
   margin-bottom: 5px;
   border-radius: 10px;
 }
 .el-input /deep/ .el-input__inner {
+  /* width: 300px !important; */
   border-radius: 10px !important;
   background: #e5e5e5;
 }
 .ca-search .el-input__inner {
   border-radius: 10px !important;
+  /* width: 300px !important; */
 }
 .cate-title {
   padding: 10px;
@@ -299,19 +281,31 @@ export default {
 .cate-title span {
   float: right;
 }
+.el-tabs__content{
+  overflow-y:scroll;
+}
 .cate-ul {
   overflow: hidden;
   padding-left: 0;
   margin: 0;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .cate-ul li {
   float: left;
   list-style: none;
-  width: 70px;
-  height: 70px;
-  background: skyblue;
-  margin-left: 5px;
-  margin-top: 5px;
+  width: 24%;
+  font-size: 12px;
+  color: #555;
+  text-align: center;
+  margin-top: 10px;
+  overflow:hidden;
+  padding:0 7px;
+
+}
+.cate-ul li img{
+  border-radius: 50%
 }
 </style>
 

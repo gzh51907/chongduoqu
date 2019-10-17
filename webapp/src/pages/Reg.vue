@@ -39,8 +39,8 @@
       </el-form-item>
     </el-form>
     <div class="warning">
-        <span class="left-text">点击注册表示同意</span>
-        <span class="right-text" style="color:#f56c02" @click="goto('/agreement')">《用户协议》</span>
+      <span class="left-text">点击注册表示同意</span>
+      <span class="right-text" style="color:#f56c02" @click="goto('/agreement')">《用户协议》</span>
     </div>
   </div>
 </template>
@@ -91,9 +91,7 @@ export default {
     //邮箱校验--未完成
     var checkEmail = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error("邮箱不能为空"));
       } else {
         callback();
       }
@@ -123,14 +121,16 @@ export default {
         this.ruleForm.usernameExit == false &&
         this.ruleForm.pass == this.ruleForm.checkPass &&
         this.ruleForm.username.length != 0 &&
-        this.ruleForm.pass.length != 0
+        this.ruleForm.pass.length != 0 &&
+        this.ruleForm.email.length != 0
       ) {
-        window.console.log("注册成功");
+        
         let { data } = await this.$axios.post(
           "http://localhost:1907/user/reg",
           {
             username: this.ruleForm.username,
-            password: this.ruleForm.pass
+            password: this.ruleForm.pass,
+            email: this.ruleForm.email
           }
         );
         //注册成功，跳转到登录页面
@@ -138,8 +138,8 @@ export default {
         setTimeout(() => {
           this.$router.push("/login");
         }, 2000);
-      } else {
-        window.console.log("注册失败");
+      }else {
+        alert("注册失败");
       }
     }
   },
@@ -185,7 +185,7 @@ h3 span {
 .el-input >>> .el-input__inner {
   border: 0;
 }
-.username{
+.username {
   margin-top: 20px;
 }
 .el-form-item {
@@ -206,10 +206,10 @@ h3 span {
 .el-alert {
   padding: 12px;
 }
-.warning{
-    padding-top: 15px;
-    text-align: center;
-    font-size: 14px;
-    color: #c3c3c3;
+.warning {
+  padding-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #c3c3c3;
 }
 </style>

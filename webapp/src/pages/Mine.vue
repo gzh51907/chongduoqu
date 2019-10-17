@@ -2,14 +2,14 @@
   <div class="box">
     <div class="header">
       <div class="el-icon-message"></div>
-      <div class="el-icon-setting"></div>
+      <div class="el-icon-setting" @click="goto('setter')"></div>
       <div class="headerimg">
         <div class="himg">
           <img src="../assets/img/default.png" alt />
         </div>
       </div>
       <el-col :span="24" class="loginreg">
-        <el-button type="text" class="loginreg">登录/注册</el-button>
+        <el-button type="text" class="loginreg" v-model="status" @click="gogo()">{{status}}</el-button>
       </el-col>
     </div>
     <div class="content">
@@ -55,6 +55,7 @@
 export default {
   data() {
     return {
+      status:"登录/注册",
       orderlist: [
         {
           icon: "el-icon-news",
@@ -98,6 +99,29 @@ export default {
         
         ]
     };
+  },
+  async created(){
+    let Authorization = localStorage.getItem("Authorization")
+    let user = localStorage.getItem("user")
+    if(Authorization){
+      let {data:{data}} = await this.$axios.get(`http://10.3.133.40:1907/user/check?username=${user}`)
+      let loginname = data[0].username2
+      // console.log()
+      this.status = loginname
+    }
+  },
+  methods:{
+    goto(name){
+      this.$router.push({name:name})
+    },
+    gogo(){
+      let Authorization = localStorage.getItem("Authorization")
+      if(Authorization){
+        this.$router.push("/setter")
+      }else if(!Authorization){
+        this.$router.push("/login")
+      }
+    }
   }
 };
 </script>

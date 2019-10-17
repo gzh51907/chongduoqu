@@ -1,7 +1,7 @@
 <template>
   <div id="bigbox">
     <router-view v-model="show" ></router-view>
-    <el-menu :default-active="activeIndex" class="el-menu-demo app-nav" mode="horizontal" @select="handleSelect" router v-show="show" >
+    <el-menu :default-active="activeIndex" class="el-menu-demo app-nav" mode="horizontal" @select="handleSelect" router v-if="show" >
       <el-menu-item :index="item.path" v-for="item in menus" :key="item.name" class="nav-item"><i :class="item.icon"></i><span>{{item.text}}</span></el-menu-item>
     </el-menu>
   </div>
@@ -80,6 +80,7 @@ export default {
   width:100%;
   margin:0;
   padding:0;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 #bigbox{
   background:#f0f0f0;

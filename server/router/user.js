@@ -27,7 +27,7 @@ router.get('/check',async(req,res)=>{
     if(result.length!=0){
         res.send(formatData({code:0,data:result}))
     }
-    console.log(username)
+    
     res.send(formatData({data:result}))
 })
 
@@ -47,7 +47,7 @@ router.get('/managecheck',async(req,res)=>{
 //插入用户信息 
 router.post('/reg',async(req,res)=>{
     
-    let {username,password} = req.body
+    let {username,password,email} = req.body
     let data = await find('user',{username:username})
     
     // res.send(data)
@@ -57,22 +57,23 @@ router.post('/reg',async(req,res)=>{
         result=[]
         msg="用户名已经存在"
     }else{
-        result = await create("user",[{username:username,password:password}])
+    let {username,password,email} = req.body
+        result = await create("user",[{username:username,password:password,username2:"绿军人浩克",email:email}])
         msg="插入成功"
     }
     res.send({msg:msg,data:result})
     
 })
 
-//修改商品信息
+//修改用户信息
 router.post('/change',async(req,res)=>{
     // let data = await find('goodslist_all',{})
-    let {name,email,password,username2,phone} = req.body
-    let result = update('test',{name:name},{email:email,name:name,password:password,username2:username2,phone:phone})
+    let {username,email,password,username2,phone,price} = req.body
+    let result = update('user',{username:username},{price:price,email:email,password:password,username2:username2,phone:phone})
     // let result = await update('goodslist_all',{},{kucun:randomNum})
     res.send(formatData({data:result}))
 })
-
+// ,name:name,password:password,username2:username2,phone:phone
 //后台插入用户信息
 router.post('/backreg',async(req,res)=>{
     
@@ -133,7 +134,7 @@ router.post('/managereg',async(req,res)=>{
 
 // })
 
-//token检验登录
+//token检验登录 -- 后台
 router.get('/login',async (req,res)=>{
     let {username,password,mdl} = req.query;
 
@@ -153,7 +154,25 @@ router.get('/login',async (req,res)=>{
     }
 })
 
+//token检验登录
+router.get('/loginin',async (req,res)=>{
+    let {username,password,mdl} = req.query;
 
+    let result = await mongo.find('user',{username,password});
+
+    
+
+    if(result.length>0){
+        // 如用户需要免登陆操作，则生成一个token并返回给前端
+        let Authorization
+        if(mdl){
+            Authorization = token.create(username)
+        }
+        res.send(formatData({data:Authorization}));
+    }else{
+        res.send(formatData({code:0}))
+    }
+})
 
 
 //用户修改

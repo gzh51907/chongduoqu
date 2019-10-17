@@ -53,7 +53,7 @@ export default {
     };
 
     return {
-      checked:true,
+      checked:false,
       ruleForm: {
         pass: "",
         username: "",
@@ -87,6 +87,7 @@ export default {
         this.$store.state.common.show = true
         this.$store.state.common.user = this.ruleForm.username;
         }else if(this.checked == false){
+          localStorage.setItem("user", this.ruleForm.username); 
           this.$store.state.common.show = true
           this.$store.state.common.user = this.ruleForm.username;
         }
