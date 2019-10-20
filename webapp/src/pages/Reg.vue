@@ -55,7 +55,7 @@ export default {
       setTimeout(async () => {
         let {
           data: { data }
-        } = await this.$axios.get("http://localhost:1907/user/check", {
+        } = await this.$hui.get("/user/check", {
           params: {
             username: this.ruleForm.username
           }
@@ -125,8 +125,8 @@ export default {
         this.ruleForm.email.length != 0
       ) {
         
-        let { data } = await this.$axios.post(
-          "http://localhost:1907/user/reg",
+        let { data } = await this.$hui.post(
+          "/user/reg",
           {
             username: this.ruleForm.username,
             password: this.ruleForm.pass,

@@ -13,7 +13,7 @@ const path = require('path');
 const request = require('request');
  
 
-// 插入"库存"属性(随机数插入)
+//插入"库存"属性(随机数插入)
 router.post('/update',async(req,res)=>{
     let data = await find('goodslist_all',{})
     data.forEach((item,i)=>{
@@ -26,25 +26,23 @@ router.post('/update',async(req,res)=>{
     res.send(formatData({data:data}))
 })
 
-// router.post('/update',async(req,res)=>{
-//     let data = await find('user',{})
-//     data.forEach((item,i)=>{
-        
-//         // item.cart = []
-//         update('user',{name:new RegExp(keyword,'g')},{cart:[]})
-//     })
-     
-//     // let result = await update('goodslist_all',{},{kucun:randomNum})
-//     res.send(formatData({data:data}))
-// })
+//增加用户购物车
+router.post('/add2cart',async (req,res)=>{
+    // let data = await find('goodslist_all',{})
+    let {user,cart} = req.body
+    let result = await update('user',{username:user},{cart:cart})
+    
+    res.send(formatData({data:result})) 
+    // res.send("1212")
+})
 
 
 
 //修改商品信息
-router.post('/change',async(req,res)=>{
+router.post('/changeqty',async(req,res)=>{
     // let data = await find('goodslist_all',{})
-    let {psname,price,info,currentprice,majorimg,kucun} = req.body
-    let result = update('goodslist_all',{name:new RegExp(psname,'g')},{price:price,kucun:kucun,current_price:currentprice,goods_brief:info,default_photo:majorimg})
+    let {user} = req.body
+    let result = update('goodslist_all',{name:new RegExp(psname,'g')},{})
     // let result = update('test',{name:new RegExp(psname,'g')},{price:price},{kucun:kucun},{current_price:currentprice},{goods_brief:info},{default_photo:majorimg},{name:psname})
     
     res.send(formatData({data:result})) 
@@ -62,29 +60,15 @@ router.get("/all",async(req,res)=>{
     res.send(formatData({data:result}))
 })
 
-//分页获取商品
-router.get('/page',async(req,res)=>{
-    let {collection,limit} = req.query
-    limit = Number(limit)
-    let result = await find(collection,{},{limit:limit})
-    res.send(formatData({data:result}))
-})
 
-//分页获取商品
-router.get('/pages',async(req,res)=>{
-    let {collection,limit,skip} = req.query
-    limit = Number(limit)
-    skip = Number(skip)
-    let result = await find(collection,{},{limit:limit,skip:skip})
-    res.send(formatData({data:result}))
-})
+
 
 
 //增加商品
 router.post("/addproduct",async(req,res)=>{
-    let {name,price,currentprice,majorimg,kucun,info,sellcount,id,brand,category} = req.body
+    let {user,pro} = req.body
 
-    let result = await create('goodslist_all',[{name:name,price:price,sales_count:sellcount,currentprice:currentprice,default_photo:majorimg,kucun:kucun,info:info,id:id,brand:brand,category:category}])
+    let result = await create('user',{username:user},[{cart:pro}])
 
 
     res.send(formatData({data:result}))
@@ -92,11 +76,11 @@ router.post("/addproduct",async(req,res)=>{
  
 
 
-//根据关键字keyword获取商品
+//根据关键字keyword购物车
 router.get('/keyword',async(req,res)=>{
-    let {keyword} = req.query
+    let {user} = req.query
 
-    let result = await find('goodslist_all',{name:new RegExp(keyword,'g')})/*正则--名字包含keyword */
+    let result = await find('user',{username:user})/*正则--名字包含keyword */
     res.send(formatData({data:result}))
 })
 
@@ -131,9 +115,6 @@ router.get('/:id/down',async(req,res)=>{
 
 
 
-
-
-
 //获取商品并且把图片经过处理
 router.get("/all/img",async(req,res)=>{
     let result = await find('test',{})
@@ -161,41 +142,6 @@ router.get('/:id',async(req,res)=>{
     let result = await find("goodslist_all",{category:id})
     res.send(formatData({data:result}))
     // res.send(id)
-})
-
-//根据keyword获取商品
-// router.get('/query',(req,res)=>{
-
-
-//     res.send(123)
-// })
-
-
-// 插入"库存"属性(随机数插入)
-router.post('/gai',async(req,res)=>{
-
-    let data1 = await find("goods",{})
-    let data2 = await find("goodslist_all",{})
-
-    // for(var i=0;i<100;i++){
-    //     data2[i].img = data1[i].photo
-    // }
-
-    data2.forEach((item,i)=>{
-        data2[i].img = data1[i].photo
-        update('goodslist_all',{_id:item._id},{img:data1[i].photo })
-    })
-
-    
-    // let data = await find('goodslist_all',{})
-    // data.forEach((item,i)=>{
-    //     var randomNum = (Math.random()*1000).toFixed(0)
-    //     item.kucun = randomNum
-    //     update('goodslist_all',{_id:item._id},{kucun:item.kucun })
-    // })
-     
-    // let result = await update('goodslist_all',{},{kucun:randomNum})
-    res.send(data2)
 })
 
 

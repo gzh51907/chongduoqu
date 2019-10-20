@@ -119,7 +119,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     async btn(){
-        let has = await this.$axios.get(`http://10.3.133.40:1907/user/check?username=${this.ruleForm.username}`)
+        let has = await this.$hui.get(`/user/check?username=${this.ruleForm.username}`)
         console.log(has.data)
         if(has.data.code==0){
             alert('用户名已存在')
@@ -129,7 +129,7 @@ export default {
             }else if(this.ruleForm.phone==""||this.ruleForm.email==""||this.ruleForm.username2==""){
                 alert("请输入完整信息")
             }else{
-                let {data} = await this.$axios.post('http://10.3.133.40:1907/user/backreg',{
+                let {data} = await this.$hui.post('/user/backreg',{
                     username:this.ruleForm.username,
                     password:this.ruleForm.pass,
                     phone:this.ruleForm.phone,

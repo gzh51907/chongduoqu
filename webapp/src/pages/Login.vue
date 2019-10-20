@@ -53,7 +53,7 @@ export default {
   methods: {
     async loginBtn() {
       let { username, pass, mdl } = this.ruleForm;
-      let { data } = await this.$axios.get("http://localhost:1907/user/loginin", {
+      let { data } = await this.$hui.get("/user/loginin", {
         params: {
           username,
           password: pass,
@@ -75,9 +75,9 @@ export default {
         this.$router.push("/reg")
     },
     goback(){
-      let { targetUrl } = this.$route.query;
+      // let { targetUrl } = this.$route.query;
         this.$router.replace({
-          path: targetUrl || "/home"
+          path: "/home"
         });
     }
   }

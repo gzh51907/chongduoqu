@@ -69,7 +69,7 @@ export default {
   methods: {
     async loginBtn() {
       let { username, pass, mdl } = this.ruleForm;
-      let { data } = await this.$axios.get("http://localhost:1907/user/login", {
+      let { data } = await this.$hui.get("/user/login", {
         params: {
           username,
           password: pass,

@@ -176,9 +176,11 @@ router.get('/loginin',async (req,res)=>{
 
 
 //用户修改
-router.post('/update',async(req,res)=>{
-    let result = await update('user',{username:"zhouxiaohuigg"},{email:"钢铁侠"})
-    res.send(formatData({data:result}))
+router.post('/changeqty',async(req,res)=>{
+    let {user,cart} = req.body
+
+    let result = await update('user',{username:user},{cart:cart})
+    res.send(result)
 })
 
 
@@ -196,6 +198,23 @@ router.post('/put',async(req,res)=>{
     let result = await update('user',{username:"zhouxiaohui"},{username2:"羊城通丢了"})
     res.send(formatData({data:result}))
 })
+
+//根据id获取单个商品
+router.get('/:id',async(req,res)=>{
+    let {id} = req.params
+    id = Number(id)
+    let result = await find("goodslist_all",{id:id})
+    res.send(formatData({data:result}))
+    // res.send(id)
+})
+
+router.post('/addlist',async(req,res)=>{
+    let {user,product,qty,totalprice} = req.body 
+
+    let result = await create('list',[{username:user,product:product,qty:qty,totalprice:totalprice,date:"2019-10-22"}])
+    res.send(formatData({data:result}))
+})
+
 
 
 

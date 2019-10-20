@@ -20,6 +20,7 @@ import Listmenus from '../components/list/Listmenus.vue'
 
 //创建路由实例
 let router = new VueRouter({
+    mode:"history",
     routes:[{
         name:"goodslist",
         path:"/goodslist",

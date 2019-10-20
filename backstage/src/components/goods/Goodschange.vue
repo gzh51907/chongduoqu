@@ -171,8 +171,8 @@ export default {
         // {name,price,currentprice,majorimg,kucun,info,sellcount,id,brand}
         
         // console.log(this.ruleForm.productname,this.ruleForm.price,this.ruleForm.info)
-        let {data} = await this.$axios.post("http://10.3.133.40:1907/goods/change",{
-            name:this.ruleForm.name,
+        let {data} = await this.$hui.post("/goods/change",{
+            psname:this.ruleForm.productname,
             price:this.ruleForm.price,
             currentprice:this.ruleForm.currentprice,
             majorimg:this.ruleForm.majorurl,
@@ -214,7 +214,7 @@ export default {
   async created(){
       
       let keyword = this.$route.params.paname
-      let {data:{data}} = await this.$axios.get(`http://10.3.133.40:1907/goods/keyword?keyword=${keyword}`)
+      let {data:{data}} = await this.$hui.get(`/goods/keyword?keyword=${keyword}`)
       data = data[0]
         this.ruleForm.currentprice = data.current_price
         this.ruleForm.info =data.goods_brief

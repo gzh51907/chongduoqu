@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div class="title">
+    <div class="title" style="height:44px">
       <el-button class="el-icon-arrow-left" @click="goto('category')"></el-button>
       <el-autocomplete
         v-model="state"
@@ -16,10 +16,10 @@
       <el-button plain @click="sort(isup,'sales_count')">销量排序</el-button>
       <el-button plain @click="sort(isup,'price')">价格排序</el-button>
     </el-row>
-    <div class="goodlist" style="flex:1;">
-      <el-row class="infinite-list goods-box" s v-infinite-scroll="load" style="overflow:auto padding:5px;" infinite-scroll-delay=1000 infinite-scroll-distance=400>
-        <el-col v-for="item in goods" v-model="goods" class="infinite-list-item" :key="item.id" :span="11" style="margin:2%;padding:7px;border:1px solid #e5e5e5;border-radius:10px">
-            <img :src="item.default_photo.thumb" alt="" style="max-width  :100%">
+    <div class="goodlist">
+      <el-row class="infinite-list goods-box" style="height:100%;overflow:scroll">
+        <el-col v-for="item in goods" v-model="goods" class="infinite-list-item" :key="item.id" :span="11" style="margin:2%;height:260px;padding:7px;border:1px solid #e5e5e5;border-radius:10px" @click.native="godetail(item.id)">
+            <img :src="item.img" alt="" style="width :100%;height:156px;">
             <p style="font-size:12px;height:36px;overflow:hidden;line-height:18px;">{{item.name}}</p>
             <p style="color:orange;font-size:14px">￥{{item.current_price}}<del>{{item.price}}</del></p>
             <p  class="gs-info"><span>0%好评</span><span>销量{{item.sales_count}}</span><i class="el-icon-shopping-cart-full"></i></p>
@@ -73,28 +73,34 @@ export default {
     async sort(ud,query){
       let id = this.$route.params.id
       if(this.isup == true){
-         let {data} = await this.$axios.get(`http://10.3.133.40:1907/goods/${id}/up?sort=${query}`)
+         let {data} = await this.$hui.get(`/goods/${id}/up?sort=${query}`)
          
          this.isup = !this.isup
          this.goods = data
       }else if(this.isup == false){
-        let {data} = await this.$axios.get(`http://10.3.133.40:1907/goods/${id}/down?sort=${query}`)
+        let {data} = await this.$hui.get(`/goods/${id}/down?sort=${query}`)
          
          this.isup = !this.isup
          this.goods = data
       }else if(!ud){
-        let {data:{data}} = await this.$axios.get(`http://10.3.133.40:1907/goods/${id}`)
+        let {data:{data}} = await this.$hui.get(`/goods/${id}`)
         this.goods = data
       }
 
     },
     async sellsort(){
 
+    },
+    godetail(id){
+      this.$router.push({
+        name:'detail',
+        params:{id:id}
+      })
     }
   },
   async created(){
     let id = this.$route.params.id
-    let {data:{data}} = await this.$axios.get(`http://10.3.133.40:1907/goods/${id}`)
+    let {data:{data}} = await this.$hui.get(`/goods/${id}`)
     this.goods = data
     console.log(data)
 

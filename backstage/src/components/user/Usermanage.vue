@@ -94,7 +94,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     async btn(){
-        let has = await this.$axios.get(`http://10.3.133.40:1907/user/managecheck?username=${this.ruleForm.username}`)
+        let has = await this.$hui.get(`/user/managecheck?username=${this.ruleForm.username}`)
         console.log(has.data)
         if(has.data.code==0){
             alert('用户名已存在')
@@ -102,7 +102,7 @@ export default {
             if(this.ruleForm.pass != this.ruleForm.checkPass){
                 alert("两次输入密码不一致")
             }else{
-                let {data} = await this.$axios.post('http://10.3.133.40:1907/user/managereg',{
+                let {data} = await this.$hui.post('/user/managereg',{
                     username:this.ruleForm.username,
                     password:this.ruleForm.pass
                 });

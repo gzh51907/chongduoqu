@@ -8,7 +8,7 @@
     </el-carousel>
     <ul class="classify">
       <li v-for="item in classify" :key="item">
-        <img :src="item" alt />
+        <img :src="item" @click="gogoods(215)" />
       </li>
     </ul>
     <div class="floor-theme">
@@ -28,7 +28,7 @@
           v-for="item in ele.data1"
           :key="item.id"
           style="height:300px"
-          @click.native="goto(item.id)"
+          @click.native="goto(4165)"
         >
           <el-image style="width:100%" :src="item.default_photo.thumb" fit="contain"></el-image>
           <p class="name">{{item.name}}</p>
@@ -78,8 +78,8 @@ export default {
   async created() {
     let {
       data: { data }
-    } = await this.$axios.get(
-      "http://10.3.133.40:1907/goods/all?collection=home_list"
+    } = await this.$hui.get(
+      "/goods/all?collection=home_list"
     );
     this.homelist[0].data1 = data[0].recently_products.slice(0, 6);
     this.homelist[1].data1 = data[0].good_products.slice(0, 6);
@@ -88,7 +88,10 @@ export default {
   },
   methods: {
     goto(id) {
-      this.$router.push({ name: "detail", params: { id } });
+      this.$router.push({ name: "detail", params: {id:id} });
+    },
+    gogoods(id){
+      this.$router.push({ name: "goods", params: {id:id} });
     }
   }
 };

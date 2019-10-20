@@ -104,7 +104,7 @@ export default {
     let Authorization = localStorage.getItem("Authorization")
     let user = localStorage.getItem("user")
     if(Authorization){
-      let {data:{data}} = await this.$axios.get(`http://10.3.133.40:1907/user/check?username=${user}`)
+      let {data:{data}} = await this.$hui.get(`/user/check?username=${user}`)
       let loginname = data[0].username2
       // console.log()
       this.status = loginname

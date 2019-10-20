@@ -30,7 +30,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page.sync="currentPage3"
-        :page-size="100"
+        :page-size="10"
         layout="prev, pager, next, jumper"
         :total="1000"
       ></el-pagination>
@@ -76,8 +76,8 @@ export default {
       this.tableData.splice(index, 1);
       console.log(row.username);
 
-      let { data } = await this.$axios.post(
-        "http://10.3.133.40:1907/user/delback",
+      let { data } = await this.$hui.post(
+        "/user/delback",
         {
           username: row.username
         }
@@ -91,7 +91,7 @@ export default {
       this.tableData = [];
       let page = val*10+"";
       console.log(page)
-      let {data: { data }} = await this.$axios.get(`http://10.3.133.40:1907/goods/pages?collection=goodslist_all&limit=10&skip=${page}`);
+      let {data: { data }} = await this.$hui.get(`/goods/pages?collection=goodslist_all&limit=10&skip=${page}`);
       
       data.forEach((item) => {
         var userO = {};
@@ -113,7 +113,7 @@ export default {
   async created() {
     let {
       data: { data }
-    } = await this.$axios.get("http://10.3.133.40:1907/goods/pages?collection=goodslist_all&limit=10&skip=10");
+    } = await this.$hui.get("/goods/pages?collection=goodslist_all&limit=10&skip=10");
     // console.log(data);
     
     data.forEach((item, i) => {

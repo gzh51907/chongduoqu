@@ -62,11 +62,6 @@ export default {
               name: "goodsadd",
               path: "/goodsadd",
               text: "添加商品"
-            },
-            {
-              name: "goodscategory",
-              path: "/goodscategory",
-              text: "商品分类"
             }
           ]
         },

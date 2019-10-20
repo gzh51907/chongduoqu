@@ -12,7 +12,13 @@ Vue.use(ElementUI);
 
 //引入axios
 import axios from 'axios'
+
+let hui  = axios.create({
+  baseURL:'http://localhost:1907/'
+})
+
 Vue.prototype.$axios = axios /*写入vue原型*/
+Vue.prototype.$hui = hui
 
 //引入vuex
 import store from './store'

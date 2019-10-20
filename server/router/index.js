@@ -7,6 +7,7 @@ const {formatData,token} = require('../tools')
 let goodsRouter = require('./goods')
 let userRouter = require('./user')
 let listRouter = require('./list')
+let cartRouter = require('./cart')
 // let loginRouter = require('./login')
 
 //允许跨域请求
@@ -29,6 +30,7 @@ router.use(express.urlencoded({extended:true}),express.json());//推导：内部
 router.use('/goods',goodsRouter)
 router.use('/user',userRouter)
 router.use('/list',listRouter)
+router.use('/cart',cartRouter)
 // router.use('/login',loginRouter)
 
 //校验token

@@ -17,6 +17,7 @@ import Setter from '../pages/Setter.vue'
 
 //创建路由实例
 let router = new VueRouter({
+    mode:"history",
     routes:[{
         name:"home",
         path:"/home",
@@ -50,7 +51,7 @@ let router = new VueRouter({
         component:Goods
     },{
         name:"detail",
-        path:"/detail",
+        path:"/detail/:id",
         component:Detail
     },{
         name:"login",

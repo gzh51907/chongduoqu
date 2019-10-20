@@ -73,7 +73,8 @@ export default {
         pass: "",
         username2: "",
         email:"",
-        phone:""
+        phone:"",
+        username:""
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
@@ -98,12 +99,12 @@ export default {
       this.$refs[formName].resetFields();
     },
     async btn(){
-        let {data} = await this.$axios.post("http://10.3.133.40:1907/user/change",{
+        let {data} = await this.$hui.post("/user/change",{
             username2:this.ruleForm.username2,
             password:this.ruleForm.pass,
             email:this.ruleForm.email,
             phone:this.ruleForm.phone,
-            name:this.$route.params.paname
+            username:this.$route.params.paname
         })
 
         //判断是否成功
@@ -116,10 +117,11 @@ export default {
   },
   async created(){
       let username = this.$route.params.paname
-      let {data:{data}} = await this.$axios.get(`http://10.3.133.40:1907/user/check?username=${username}`)
+      let {data:{data}} = await this.$hui.get(`/user/check?username=${username}`)
       
       data = data[0]
         this.ruleForm.username2 = data.username2
+        this.ruleForm.username = data.username
         this.ruleForm.pass =data.password
         this.ruleForm.email= data.email
         this.ruleForm.phone = data.phone

@@ -18,7 +18,7 @@
           </div>
           <ul class="cate-ul">
             <li v-for="item in type.categories" :key="item.name" @click="gogoods(item.id)">
-              <img :src="item.photo?item.photo.thumb:noimg" alt="" style="max-width:100%;border-radius:50%">
+              <img :src="item.photo?item.photo.thumb:noimg" alt="" style="width:62px;height:62px;border-radius:50%">
        
               <span>{{item.name}}</span>
             </li>
@@ -192,7 +192,7 @@ export default {
     this.restaurants = this.loadAll();
   },
   async created(){
-    let {data:{data}} = await this.$axios.get("http://10.3.133.40:1907/goods/all?collection=category")
+    let {data:{data}} = await this.$hui.get("/goods/all?collection=category")
     
     this.category = data
     

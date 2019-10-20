@@ -73,14 +73,14 @@ export default {
       this.tableData.splice(index,1)
       console.log(row.username)
 
-      let {data} = await this.$axios.post("http://10.3.133.40:1907/list/delback",{
+      let {data} = await this.$hui.post("/list/delback",{
         product:row.product
       })
     }
       
   },
   async created(){
-      let {data:{data}} = await this.$axios.get("http://10.3.133.40:1907/list/all")
+      let {data:{data}} = await this.$hui.get("/list/all")
       console.log(data)
       var userO
       data.forEach((item,i)=>{

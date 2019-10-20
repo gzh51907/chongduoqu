@@ -159,7 +159,7 @@ export default {
           return false;
         }
       });
-    },
+    }, 
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
@@ -167,7 +167,7 @@ export default {
         // {name,price,currentprice,majorimg,kucun,info,sellcount,id,brand}
         
         console.log(this.ruleForm.productname,this.ruleForm.price,this.ruleForm.info)
-        let {data} = await this.$axios.post("http://10.3.133.40:1907/goods/addproduct",{
+        let {data} = await this.$hui.post("/goods/addproduct",{
             name:this.ruleForm.name,
             price:this.ruleForm.price,
             currentprice:this.ruleForm.currentprice,

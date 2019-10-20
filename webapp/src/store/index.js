@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 
 import category from './category';
 import common from './common';
+import cart from './cart';
 
 // 2. 使用（安装）Vuex
 Vue.use(Vuex);
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
   // store.state.xxx -> store.state.cart.xxx
   modules:{
     category,
-    common
+    common,
+    cart
   }
 });
 
