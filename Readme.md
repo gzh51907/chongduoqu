@@ -6,8 +6,9 @@
 
 * 上线地址：
 
-    *webapp地址:  http://116.62.209.91:1908/
-    *后台管理系统地址:  http://116.62.209.91:1909
+    * webapp地址:  http://116.62.209.91:1908/  用户名：herurui 密码：六个0
+
+    * 后台管理系统地址:  http://116.62.209.91:1909   用户名：herurui 密码：六个2
 
 ## git仓库地址:
    * git@github.com:gzh51907/chongduoqu.git
@@ -26,45 +27,45 @@
 
 ## 项目目录说明：
 * backstage文件夹:后台管理系统项目
-    *node_modules ：项目依赖
-    *src ：项目代码
-        *assets：静态资源
-            *imgs：图片文件
-        *component：页面组件
-            *goods：商品功能相关组件
-            *list：订单功能相关组件
-            *user：用户功能相关组件
-        *pages:初始化页面组件
-            *Login.vue:登录页面组件
-            *Home.vue：首页组件
-        *router ：路由配置文件
-        *store ：vuex相关文件
-    *pacskage.json：项目依赖配置
-
-* server文件夹: 服务器接口目录
-    *node_modules ：项目依赖
-    *pacskage.json：项目依赖配置
-    *src：项目代码
-        *assets：静态资源
-            *imgs：图片文件
-        *db：数据库连接配置
-            *mongo.js :mongodb连接配置及封装
-            
-        *pages:初始化页面组件
-            *Login.vue:登录页面组件
-            *Home.vue：首页组件
-        *router ：路由配置文件及接口
-            *goods.js 商品模块相关接口
-            *user.js 用户模块相关接口
-            *list.js 订单相关接口
-        *tools ：工具函数封装
-
-* webapp文件夹 :项目网站目录
-    *node_modules ：项目依赖
-    *pacskage.json：项目依赖配置
-    *src：项目代码    
+    * node_modules ：项目依赖
+    * src ：项目代码
         * assets：静态资源
             *imgs：图片文件
+        * component：页面组件
+            * goods：商品功能相关组件
+            * list：订单功能相关组件
+            * user：用户功能相关组件
+        * pages:初始化页面组件
+            * Login.vue:登录页面组件
+            * Home.vue：首页组件
+        * router ：路由配置文件
+        * store ：vuex相关文件
+    * pacskage.json：项目依赖配置
+
+* server文件夹: 服务器接口目录
+    * node_modules ：项目依赖
+    * pacskage.json：项目依赖配置
+    * src：项目代码
+        * assets：静态资源
+            * imgs：图片文件
+        * db：数据库连接配置
+            * mongo.js :mongodb连接配置及封装
+            
+        * pages:初始化页面组件
+            * Login.vue:登录页面组件
+            * Home.vue：首页组件
+        * router ：路由配置文件及接口
+            * goods.js 商品模块相关接口
+            * user.js 用户模块相关接口
+            * list.js 订单相关接口
+        * tools ：工具函数封装
+
+* webapp文件夹 :项目网站目录
+    * node_modules ：项目依赖
+    * pacskage.json：项目依赖配置
+    * src：项目代码    
+        * assets：静态资源
+            * imgs：图片文件
         * pages：页面组件
             * Home.vue:首页组件
             * Category.vue 分类页组件
@@ -76,9 +77,9 @@
             * Login.vue 用户登录组件
             * Arguement.vue 用户协议
             * Setter.vue 用户设置
-        *App.vue:页面初始化组件
-        *router ：路由配置文件
-        *store ：vuex相关文件
+        * App.vue:页面初始化组件
+        * router ：路由配置文件
+        * store ：vuex相关文件
 
 ## 项目说明：
 * 《宠多趣》是一个使用vue开发的单页面应用，其本身是一个专门做宠物相关的电商网站，
