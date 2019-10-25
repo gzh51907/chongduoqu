@@ -32,7 +32,7 @@
         :current-page.sync="currentPage3"
         :page-size="10"
         layout="prev, pager, next, jumper"
-        :total="1000"
+        :total="1020"
       ></el-pagination>
     </div>
   </div>

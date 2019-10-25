@@ -1,4 +1,4 @@
-import Vue from 'vue'
+﻿import Vue from 'vue'
 import App from './App.vue'
 
 
@@ -38,7 +38,7 @@ Vue.use(Checkbox)
 import axios from 'axios'
 
 let hui  = axios.create({
-  baseURL:'http://192.168.4.103:1907/'
+  baseURL:'http://116.62.209.91:1907/'
 })
 
 Vue.prototype.$axios = axios /*写入vue原型*/

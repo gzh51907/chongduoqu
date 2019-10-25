@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="box">
     <div id="001"></div>
     <el-carousel indicator-position="outside" height="260px">
@@ -28,7 +28,7 @@
           v-for="item in ele.data1"
           :key="item.id"
           style="height:300px"
-          @click.native="goto(4165)"
+          @click.native="goto(item.id)"
         >
           <el-image style="width:100%" :src="item.default_photo.thumb" fit="contain"></el-image>
           <p class="name">{{item.name}}</p>

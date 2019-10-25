@@ -1,5 +1,6 @@
 <template>
   <div class="box">
+    <div class='logo'><img src="" alt=""></div>
     <div id="login">
       <h2>后台管理系统</h2>
       <div class="form">
@@ -112,6 +113,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+  background: #545c64;
 }
 #login {
   position: absolute;
@@ -120,7 +122,10 @@ export default {
   transform: translate(-50%, -50%);
   width: 600px;
   height: 500px;
-  background: pink;
+  background: #999;
+  color:#fff;
+  box-shadow: 0 2px 6px #fff, 0 0 6px#fff;
+  border-radius: 20px;
 }
 h2 {
   text-align: center;
@@ -132,6 +137,8 @@ h2 {
   background: #f3f3f3;
   margin: 20px auto;
   padding: 20px;
+  border-radius: 20px;
+  
 }
 .el-form{
     width: 90%;

@@ -1,6 +1,6 @@
 {
     "PORT":1907,
-    "DBurl":"mongodb://192.168.4.103:27017",
+    "DBurl":"mongodb://116.62.209.91:27017",
     "DBname":"chongduoqu",
     "secret":"see you later"
 }

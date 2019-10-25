@@ -110,6 +110,9 @@ export default {
         //判断是否成功
         if(data.code==1){
             alert("插入成功")
+            setTimeout(() => {
+              this.$router.push('/goodslist')
+            }, 1500);
         }else{
             alert("插入失败")
         }

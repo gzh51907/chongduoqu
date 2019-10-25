@@ -31,7 +31,7 @@
           <el-button
           size="mini"
           ype="success"
-          @click="handleEdit(scope.$index, scope.row)" t>编辑</el-button>
+          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         <el-button
           size="mini"
           type="danger"
@@ -66,16 +66,16 @@ export default {
     handleEdit(index, row) {
       console.log(index, row);
       let paname = row.username
-      this.$router.push({name:"userchange",params:{paname}})
+      // this.$router.push({name:"userchange",params:{paname}})
     },
     async handleDelete(index, row) {
       console.log(index, row);
       this.tableData.splice(index,1)
       console.log(row.username)
 
-      let {data} = await this.$hui.post("/list/delback",{
-        product:row.product
-      })
+      // let {data} = await this.$hui.post("/list/delback",{
+      //   product:row.product
+      // })
     }
       
   },

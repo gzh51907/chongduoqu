@@ -9,6 +9,7 @@ import Category from '../pages/Category.vue'
 import Cart from '../pages/Cart.vue'
 import Mine from '../pages/Mine.vue'
 import Goods from '../pages/Goods.vue'
+import Goodsone from '../pages/Goodsone.vue'
 import Detail from '../pages/Detail.vue'
 import Login from '../pages/Login.vue'
 import Reg from '../pages/Reg.vue'
@@ -49,6 +50,10 @@ let router = new VueRouter({
         name:"goods",
         path:"/goods/:id",
         component:Goods
+    },{
+        name:"goodsone",
+        path:"/goodsone/:id",
+        component:Goodsone
     },{
         name:"detail",
         path:"/detail/:id",

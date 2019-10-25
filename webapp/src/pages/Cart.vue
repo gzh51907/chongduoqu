@@ -11,7 +11,7 @@
                     :price="item.price"
                     desc="描述信息"  
                     :title="item.name"
-                    :thumb="item.default_photo.thumb"
+                    :thumb="item.img"
                     >
                     
                     <div slot="footer">

@@ -139,6 +139,9 @@ export default {
                 });
                 alert("插入成功")
                 console.log('data:',data)
+                setTimeout(() => {
+                  this.$router.push('/goodslist')
+                }, 1500);
             }
         }
         

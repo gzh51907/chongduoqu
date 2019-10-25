@@ -115,7 +115,7 @@ export default {
           this.goods.title = data.name
           this.goods.price = data.price
           this.goods.kucun = 999
-          this.goods.thumb[0] = data.default_photo.thumb
+          this.goods.thumb[0] = data.img
           data.checked = true
           data.qty = 1
 

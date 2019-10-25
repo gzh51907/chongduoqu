@@ -21,7 +21,7 @@
           </el-col>
           <el-col :span="11">
               <el-form-item label="销售价格:" prop="current_price">
-                <el-input v-model="ruleForm.current_price"></el-input>
+                <el-input v-model="ruleForm.currentprice"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -168,7 +168,7 @@ export default {
         
         console.log(this.ruleForm.productname,this.ruleForm.price,this.ruleForm.info)
         let {data} = await this.$hui.post("/goods/addproduct",{
-            name:this.ruleForm.name,
+            name:this.ruleForm.productname,
             price:this.ruleForm.price,
             currentprice:this.ruleForm.currentprice,
             majorimg:this.ruleForm.majorurl,
@@ -187,6 +187,9 @@ export default {
         //判断是否成功
         if(data.code==1){
             alert("插入成功")
+            setTimeout(() => {
+              this.$router.push('/goodslist')
+            }, 1500);
         }else{
             alert("插入失败")
         }

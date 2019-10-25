@@ -153,8 +153,16 @@ router.get("/all/img",async(req,res)=>{
     res.send(result)
 })
 
+//根据id获取商品
+router.get('/one/:id',async(req,res)=>{
+    let {id} = req.params
+    id = Number(id)
+    let result = await find("goodslist_all",{id:id})
+    res.send(formatData({data:result}))
+    // res.send(id)
+})
 
-//根据id获取单个商品
+//根据id获取商品
 router.get('/:id',async(req,res)=>{
     let {id} = req.params
     id = Number(id)
@@ -162,6 +170,8 @@ router.get('/:id',async(req,res)=>{
     res.send(formatData({data:result}))
     // res.send(id)
 })
+
+
 
 //根据keyword获取商品
 // router.get('/query',(req,res)=>{

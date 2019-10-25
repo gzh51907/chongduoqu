@@ -14,7 +14,9 @@ Vue.use(ElementUI);
 import axios from 'axios'
 
 let hui  = axios.create({
-  baseURL:'http://localhost:1907/'
+  // baseURL:'http://116.62.209.91:1907/'
+  baseURL:'http://116.62.209.91:1907/'
+
 })
 
 Vue.prototype.$axios = axios /*写入vue原型*/
